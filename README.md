@@ -3,6 +3,5 @@ This repository is created for the purpose of R Open Labs in Fall 2018. After ea
 
 I hope holding these open labs and sharing these materials will introduce R, the fascinating open-source programming language, to more people who find it useful.
 
-Sign up for open labs: https://library.columbia.edu/research/workshops.html.
-/newline
+Sign up for open labs: https://library.columbia.edu/research/workshops.html.  
 You can also get help on your own project or research by utilizing our walk-in hours. Check the schedule here: https://library.columbia.edu/services/research-data-services/schedule.html.
