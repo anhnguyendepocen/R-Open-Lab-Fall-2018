@@ -1,0 +1,166 @@
+---
+title: "R Open Lab 6"
+author: "Hannah Ji"
+date: "2018/10/29"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+character : a symbol in a written language - anything you can enter on a keyboard.
+string : a sequence of characters ("Columbia University")
+
+Both are type 'character' in R.
+
+
+Some special characters
+```{r}
+# Whitespace
+class(" ")
+nchar("")
+nchar(" ")
+nchar("  ")
+
+# Other special character
+nchar("\n")#new line
+nchar("\t")#tab
+nchar("\"")#quote itself
+```
+
+
+When strings are elements of an object(vector)
+```{r}
+#length return how many strings in the vector, not the number of characters in each string
+length(c("we", "love", "R"))
+length("we, love, R")
+nchar("we, love, R")
+
+
+nchar(c("we", "love", "R"))
+```
+
+cat() can coerces its argument to string
+```{r}
+x <- 6
+y <- 7
+cat("I have", x, "cats and", y, "dogs.")
+#print("I have", x, "cats and", y, "dogs.")
+
+
+# cat() can handle "\n", "\t" and "\""
+# Check
+# We want Columbia tab University
+# We want quote in sentence
+cat("This is an 'array'")
+cat('This is an "array"')
+
+# cannot work
+#cat("This is an "array"")
+#cat('This is an 'array'')
+# Remedy
+cat("This is an \"array\"")
+cat('This is an \'array\'')
+# How many character in it?
+```
+
+Substring
+```{r}
+mystr <- "This is R Programming Open Lab"
+substr(mystr, start = 9, stop = 21)
+
+# Need to avoid
+substr(mystr, start = 9, stop = 100)# arbitary large end number
+
+substr(mystr, start = 9, stop = 21) <- "Python"# it will just substitute according to the certain amount of new string
+mystr
+mystr <- "This is R programming Open Lab"
+substr(mystr, start = 9, stop = 9) <- 'Python'
+mystr
+
+mystr <- "This is R Programming Open Lab"
+substr(mystr, start = 9, stop = 9) <- "a"
+mystr
+
+
+
+# start and end apply to each element in the vector
+fav_animals <- c("cat", "elephant", "squirrel")
+substr(fav_animals, start = 1, stop = 2)
+substr(fav_animals, nchar(fav_animals)-1, nchar(fav_animals))
+# what will happen then?
+substr(fav_animals, start = 4, stop = 4)
+```
+
+Divide strings into vectors
+```{r}
+# we need to have some pattern to split the string
+fruit <- "Apple Banana Orange"
+strsplit(fruit, split = " ")
+
+courses <- "Lecture, Lab, Homework"
+strsplit(courses, split = ",")
+# strsplit(course, split = ", ")
+
+# if input has mistake, we need to find the pattern that for our proble,
+skills <-"Data,Science, Machine Learning, Programming"
+strsplit(skills, split = ", ")
+```
+
+
+Task
+```{r}
+# use substr to extract "bi" in each element of a vector
+
+substr(c("Columbia", "combine"), start = c(6,4), stop = c(7,5))
+
+strsplit(c("Columbia", "combine"), split = "bi")
+```
+
+Build strings from multiple part
+```{r}
+fav_animals
+paste(fav_animals, " (", 1:3, ")", sep = "  ", collapse = "; ")
+```
+
+
+Searching strings
+```{r}
+# use Tab to find file
+HC <- readLines("HonorCode.txt")
+# How many lines in total
+length(HC)
+
+#grep: search for a specified substring given by pattern in a vector
+grep("honest", HC)
+grep("students", HC)
+HC[grep("honest",HC)]
+
+
+#
+HC_new <- paste(HC, collapse = " ") #long string
+unlist(strsplit(HC_new, split = " "))
+strsplit(HC_new, split = " ")[[1]]
+HC.words <- strsplit(HC_new, split = " ")[[1]]
+word_count <- table(HC.words)
+word_count <- sort(word_count, decreasing = TRUE)
+
+#wordcloud::wordcloud(names(word_count), word_count)
+#new <- word_count[10:30]
+#wordcloud::wordcloud(names(new), new)
+```
+
+```{r}
+semicolons <- grep(";", HC)
+HC[semicolons]
+# gsub: replace patterns in a strign with another string
+HC <- gsub(";", "", HC)
+HC[semicolons]
+
+mystr <- "This is R Programming Open Lab"
+gsub("R Programming","Python", mystr)
+```
+
+
+
